@@ -15,6 +15,7 @@ use App\Shop\Provinces\Province;
 use App\Shop\Cities\City;
 use App\Shop\Countries\Country;
 use Tests\TestCase;
+use Illuminate\Support\Str;
 
 class AddressUnitTest extends TestCase
 {
@@ -94,7 +95,7 @@ class AddressUnitTest extends TestCase
         ]);
 
         $repo = new AddressRepository(new Address());
-        $results = $repo->searchAddress(str_limit($address->address_1, 5, ''));
+        $results = $repo->searchAddress(Str::limit($address->address_1, 5, ''));
 
         $this->assertTrue((bool) $results->count());
     }

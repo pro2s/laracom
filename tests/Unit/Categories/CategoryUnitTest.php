@@ -266,6 +266,6 @@ class CategoryUnitTest extends TestCase
         ]);
 
         // check if updated category is root
-        $this->assertTrue( $updated->parent->is($parent) );
+        $this->assertTrue($updated->parent->is($parent));
     }
 }

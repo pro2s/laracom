@@ -9,7 +9,7 @@ use Jsdecena\Baserepo\BaseRepository;
 use App\Shop\Employees\Employee;
 use App\Shop\Employees\Repositories\EmployeeRepository;
 use App\Events\OrderCreateEvent;
-use App\Mail\sendEmailNotificationToAdminMailable;
+use App\Mail\SendEmailNotificationToAdminMailable;
 use App\Mail\SendOrderToCustomerMailable;
 use App\Shop\Orders\Exceptions\OrderInvalidArgumentException;
 use App\Shop\Orders\Exceptions\OrderNotFoundException;
@@ -152,7 +152,7 @@ class OrderRepository extends BaseRepository implements OrderRepositoryInterface
         $employee = $employeeRepo->findEmployeeById(1);
 
         Mail::to($employee)
-            ->send(new sendEmailNotificationToAdminMailable($this->findOrderById($this->model->id)));
+            ->send(new SendEmailNotificationToAdminMailable($this->findOrderById($this->model->id)));
     }
 
     /**

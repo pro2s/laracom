@@ -6,7 +6,7 @@ use App\Shop\Addresses\Address;
 use App\Shop\Couriers\Courier;
 use App\Shop\Customers\Customer;
 use App\Events\OrderCreateEvent;
-use App\Mail\sendEmailNotificationToAdminMailable;
+use App\Mail\SendEmailNotificationToAdminMailable;
 use App\Mail\SendOrderToCustomerMailable;
 use App\Shop\Orders\Exceptions\OrderInvalidArgumentException;
 use App\Shop\Orders\Exceptions\OrderNotFoundException;
@@ -117,7 +117,7 @@ class OrderUnitTest extends TestCase
         $orderRepo->createOrder($data);
 
         Mail::assertSent(SendOrderToCustomerMailable::class);
-        Mail::assertSent(sendEmailNotificationToAdminMailable::class);
+        Mail::assertSent(SendEmailNotificationToAdminMailable::class);
     }
 
     /** @test */
