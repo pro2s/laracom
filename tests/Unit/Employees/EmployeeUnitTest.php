@@ -35,10 +35,10 @@ class EmployeeUnitTest extends TestCase
         $employee = factory(Employee::class)->create();
         $role = factory(Role::class)->create();
 
-        $employee->roles()->attach($role);
+        $employee->attachRole($role);
         $this->assertTrue($employee->hasRole($role->name));
-
-        $employee->roles()->detach($role);
+        
+        $employee->detachRole($role);
         $this->assertFalse($employee->hasRole($role->name));
     }
 }

@@ -14,6 +14,7 @@ use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Database\QueryException;
 use Illuminate\Http\UploadedFile;
 use Illuminate\Support\Collection;
+use Illuminate\Support\Str;
 
 class CategoryRepository extends BaseRepository implements CategoryRepositoryInterface
 {
@@ -70,10 +71,12 @@ class CategoryRepository extends BaseRepository implements CategoryRepositoryInt
     public function createCategory(array $params) : Category
     {
         try {
+            $slug = '';
+            $cover = '';
 
             $collection = collect($params);
             if (isset($params['name'])) {
-                $slug = str_slug($params['name']);
+                $slug = Str::slug($params['name']);
             }
 
             if (isset($params['cover']) && ($params['cover'] instanceof UploadedFile)) {
@@ -108,14 +111,14 @@ class CategoryRepository extends BaseRepository implements CategoryRepositoryInt
     {
         $category = $this->findCategoryById($this->model->id);
         $collection = collect($params)->except('_token');
-        $slug = str_slug($collection->get('name'));
+        $slug = Str::slug($collection->get('name'));
 
         if (isset($params['cover']) && ($params['cover'] instanceof UploadedFile)) {
             $cover = $this->uploadOne($params['cover'], 'categories');
         }
 
         $merge = $collection->merge(compact('slug', 'cover'));
-
+        
         // set parent attribute default value if not set
         $params['parent'] = $params['parent'] ?? 0;
 
@@ -131,7 +134,7 @@ class CategoryRepository extends BaseRepository implements CategoryRepositoryInt
         }
 
         $category->update($merge->all());
-        
+
         return $category;
     }
 

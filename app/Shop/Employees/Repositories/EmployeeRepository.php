@@ -87,7 +87,7 @@ class EmployeeRepository extends BaseRepository implements EmployeeRepositoryInt
      */
     public function syncRoles(array $roleIds)
     {
-        $this->model->roles()->sync($roleIds);
+        $this->model->syncRoles($roleIds);
     }
 
     /**
